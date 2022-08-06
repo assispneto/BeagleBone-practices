@@ -1,0 +1,10 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/assispneto/Área de Trabalho/proj_safeWindow'
+arm-none-eabi-as -mfpu=neon src/start.s -o obj/start.o
+arm-none-eabi-gcc -std=c99 -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8 -Iinc/ -c src/main.c -o obj/main.o
+arm-none-eabi-gcc -std=c99 -Wall -mfpu=neon -mhard-float -mcpu=cortex-a8 -Iinc/ -c src/timer.c -o obj/timer.o
+arm-none-eabi-ld obj/start.o obj/main.o obj/timer.o -T src/memmap.ld -o obj/main.elf
+arm-none-eabi-objcopy obj/main.elf bin/spl.boot -O binary
+cp bin/spl.boot /tftpboot/appP5.bin
+make: Leaving directory '/home/assispneto/Área de Trabalho/proj_safeWindow'
+ 
